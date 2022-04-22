@@ -236,20 +236,25 @@ User& User::operator = (const User& other)
 
 std::istream& operator >> (std::istream& in, User& user)
 {   
-    char buffer[65] = {'\0',}; 
+    char bufferUsername[65] = {'\0',}; 
+    char bufferPassword[65] = {'\0',}; 
+    char bufferEmailAdress[65] = {'\0',}; 
     std::cout << "Username: ";
-    in >> buffer;
-    user.setUsername(buffer);
+    in.ignore();
+    in.getline(bufferUsername, 65);
+    //user.setUsername(buffer);
 
-    in.ignore();
     std::cout << "Password: ";
-    in >> buffer;
-    user.setPassword(buffer);
-    
     in.ignore();
+    in >> bufferPassword;
+    //user.setPassword(buffer);
+    
     std::cout << "Email: ";
-    in >> buffer;
-    user.setEmailAdress(buffer);
+    in.ignore();
+    in >> bufferEmailAdress;
+    //user.setEmailAdress(buffer);
+
+    user.copy(bufferUsername, bufferPassword, bufferEmailAdress);
 
     return in;
 }
