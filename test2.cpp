@@ -1,5 +1,4 @@
 #include "User.hpp"
-#include <fstream>
 
 int main()
 {

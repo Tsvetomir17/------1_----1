@@ -55,6 +55,26 @@ void User::copy(const char* username, const char* password, const char* emailAdr
         this->deallocate();
         return;
     }
+
+
+    char* fileName = new char[strlen(username) + 4];
+
+    if(!fileName)
+    {
+        std::cout << "Memory problem" << std::endl;
+        return;
+    }
+
+    strcpy(fileName, username);
+    strcat(fileName, ".db");
+
+    std::ofstream createFile(fileName);
+    if(!createFile.is_open())
+    {
+        std::cout << "Problem opening file" << std::endl;
+        return;
+    }
+    createFile.close();
 }
 
 void User::deallocate()
@@ -76,7 +96,6 @@ bool User::checkIfUsernameIsCorrect(const char* username)
     {
         if((username[i] < 'a' || username[i] > 'z') && (username[i] < 'A' || username[i] > 'Z') && (username[i] < '0' || username[i] > '9') || username[i] == ' ')
         {
-            //std::cout << "Invalid username!" << std::endl;
             return false;
         }
     }
@@ -242,17 +261,13 @@ std::istream& operator >> (std::istream& in, User& user)
     std::cout << "Username: ";
     in.ignore();
     in.getline(bufferUsername, 65);
-    //user.setUsername(buffer);
 
     std::cout << "Password: ";
-    in.ignore();
     in >> bufferPassword;
-    //user.setPassword(buffer);
     
     std::cout << "Email: ";
     in.ignore();
     in >> bufferEmailAdress;
-    //user.setEmailAdress(buffer);
 
     user.copy(bufferUsername, bufferPassword, bufferEmailAdress);
 
