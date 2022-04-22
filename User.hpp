@@ -11,7 +11,7 @@ private:
     char* password;
     char* emailAdress;
 
-    void copy(const User& other);
+    void copy(const char* username, const char* password, const char* emailAdress);
     void deallocate();
     bool checkIfUsernameIsCorrect(const char* username);
     bool checkIfEmailAdressIsCorrect(const char* emailAdress);
@@ -31,6 +31,9 @@ public:
     void setEmailAdress(const char* emailAdress);
 
     User& operator = (const User& other);
+
+    friend std::istream& operator >> (std::istream& in, User& user);
+    friend std::ostream& operator << (std::ostream& out, const User& user);
 };
 
 
