@@ -13,9 +13,12 @@ private:
     char timePeriodEnd[11];
     int grade;
     char* comment;
-    char** photos;
+    char* photos;
 
-    void copy(const char* destination, const char timeStart[], const char timeEnd[], const int grade, const char* comment, const char** photos);
+    bool checkIfTimePeriodIsCorrect(const char time[]);
+    bool checkIfYearIsLeap(const char time[]);
+    bool comparePeriodStartAndEnd(const char timeStart[], const char timeEnd[]);
+    void copy(const char* destination, const char timeStart[], const char timeEnd[], const int grade, const char* comment, const char* photos);
     void deallocate();
 
 public:
