@@ -183,12 +183,12 @@ void Travel::copy(const char* destination, const char timeStart[], const char ti
         return;
     }
 
-    if(checkIfTimePeriodIsCorrect(timeStart) && checkIfTimePeriodIsCorrect(timeEnd)
-        && comparePeriodStartAndEnd(timeStart, timeEnd))
+    if(checkIfTimePeriodIsCorrect(timeStart) && checkIfTimePeriodIsCorrect(timeEnd) && comparePeriodStartAndEnd(timeStart, timeEnd))
     {
         strcpy(this->timePeriodStart, timeStart);
         strcpy(this->timePeriodEnd, timeEnd);
     }
+
     else
     {
         std::cout << "Invalid time!" << std::endl;
@@ -241,7 +241,7 @@ void Travel::deallocate()
     this->photos = nullptr;
 }
 
-Travel::Travel() : destination(nullptr), timePeriodStart({'\0',}), timePeriodEnd({'\0',}), grade(1), comment(nullptr), photos(nullptr) {}
+Travel::Travel() : destination(nullptr), grade(1), photos(nullptr), comment(nullptr) {}
 
 Travel::Travel(const char* destination, const char* timeStart, const char* timeEnd, const int grade, const char* comment, const char* photos)
 {
