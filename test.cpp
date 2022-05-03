@@ -1,67 +1,33 @@
 #include <iostream>
 #include <cstring>
-
-bool checkPhotosValidation(const char* photos)
-{
-    int size = strlen(photos);
-    bool flagForNextPhoto = false;
+#include <fstream>
     
-    for(int i = 0; i < size; i++)
-    {
-        if(flagForNextPhoto == true)
-        {
-            if(photos[i] != ' ')
-            {
-                return false;
-            }
-            else
-            {
-                flagForNextPhoto = false;
-                continue;
-            }
-        }
-
-        if(photos[i] == '.')
-        {
-            if(photos[i+1] == 'j' && photos[i+2] == 'p' && photos[i+3] == 'e' && photos[i+4] == 'g')
-            {
-                i += 4;
-                flagForNextPhoto = true;
-            }
-
-            else if(photos[i+1] == 'p' && photos[i+2] == 'n' && photos[i+3] == 'g')
-            {
-                i += 3;
-                flagForNextPhoto = true;
-            }
-
-            else
-            {
-                return false;
-            }
-        }
-
-        else if((photos[i] >= 'a' && photos[i] <= 'z') || (photos[i] >= 'A' && photos[i] <= 'Z') || (photos[i] >= '0' && photos[i] <= '9') || photos[i] == '_' || photos[i] == '-')
-        {
-            continue;
-        }
-
-        else
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
-
+/*
 int main()
 {
-    char buffer[1024];
-    std::cin.getline(buffer, 1024);
+    std::ifstream userDataBase("UserDataBase.txt");
+    if(!userDataBase.is_open())
+    {
+        std::cout << "Problem opening file" << std::endl;
+        return 1;
+    }
 
-    if(checkPhotosValidation(buffer)) std::cout << "YES" << std::endl;
-    else std::cout << "NO" << std::endl;
+    char temp[1025];
+    char username[65];
+    char saveUsername[65];
 
+    do
+    {
+        userDataBase >> username;
+        if(strcmp(saveUsername, username) == 0) break;
+        else strcpy(saveUsername, username);
+        std::cout << username << std::endl;
+    } while (userDataBase.getline(temp, 1024));
+    
+
+
+
+    userDataBase.close();
     return 0;
 }
+*/

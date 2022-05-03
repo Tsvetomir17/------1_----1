@@ -18,7 +18,7 @@ int main()
         std::cin >> choice;
     }
 
-    while(choice != 0)
+    while(choice != 0 && choiceAfterLogIn == 0)
     {    
         while(choice == 1)
         {
@@ -68,15 +68,31 @@ int main()
                 return 1;
             }
 
-            User tempUser;
+            char currentUsername[65] = {'\0',};
+            char currentPassword[65] = {'\0',};
+            char tempWord[100] = {'\0',};
+            int counterForSwitch = 1;
+
             bool flagIfThereIsSuchUser = false;
 
             while(!userDataBase.eof())
             {
-                userDataBase >> tempUser;
-                if(tempUser.getUsername() == bufferUsername && tempUser.getPassword() == bufferPassword);
-                flagIfThereIsSuchUser = true;
-                break;
+                userDataBase >> tempWord;
+
+                switch (counterForSwitch % 3)
+                {
+                    case 1: strcpy(currentUsername, tempWord); break;
+                    case 2: strcpy(currentPassword, tempWord); break;
+                    default:
+                        if((strcmp(currentUsername, bufferUsername) == 0 && strcmp(currentPassword, bufferPassword) == 0))
+                        {
+                            flagIfThereIsSuchUser = true;
+                        }
+                        break;
+                }
+
+                counterForSwitch++;
+                if(flagIfThereIsSuchUser) break;
             }
 
             userDataBase.close();
@@ -98,6 +114,7 @@ int main()
             {
                 choiceAfterLogIn = -1;
                 strcpy(username, bufferUsername);
+                choice = -1;
             }
         }
     }
@@ -108,7 +125,7 @@ int main()
 
     while(choiceAfterLogIn != 0)
     {
-        std::cout << "Hello, " << username << "!" << std::endl;
+        std::cout << std::endl << "Hello, " << username << "!" << std::endl;
         std::cout << "Choose one of the following: " << std::endl;
         std::cout << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;
 
@@ -133,7 +150,7 @@ int main()
 
             file << trip;
             file.close();
-            std::cout << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;
+            std::cout << std::endl << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;
 
             std::cin >> choiceAfterLogIn;
             while(choiceAfterLogIn != 1 && choiceAfterLogIn != 2 && choiceAfterLogIn != 0)
@@ -145,9 +162,89 @@ int main()
 
         while(choiceAfterLogIn == 2)
         {
-            /////
+            char bufferDestination[1025] = {'\0',};
+            bool isVisited = false;
+
+            std::cout << "Which destination would you like to check: ";
+            std::cin >> bufferDestination;
+            std::cout << std::endl;
+
+            std::ifstream file("UserDataBase.txt");
+
+            if(!file.is_open())
+            {
+                std::cout << "Problem opening file" << std::endl;
+                return 1;
+            }
+
+            char tempUser[65];
+            char tempUserSave[65];
+            char tempLine[1025];
+            
+            do
+            {
+                file >> tempUser;
+                if(strcmp(tempUserSave, tempUser) == 0) break;
+                else strcpy(tempUserSave, tempUser);
+
+                char* currentUserFileName = new char[strlen(tempUser) + 4];
+                strcpy(currentUserFileName, tempUser);
+                strcat(currentUserFileName, ".db");
+
+                std::ifstream currentUserFile(currentUserFileName);
+                if(!currentUserFile.is_open())
+                {
+                    std::cout << "Problem opening file!!!!!!!" << std::endl;
+                    return 1;
+                }
+
+                char tempDestination[1025];
+                char tempUserDestinationLine[1025];
+                int index = 0;
+
+                while(!currentUserFile.eof())
+                {
+                    index = 0;
+                    currentUserFile.getline(tempUserDestinationLine, 1024);
+
+                    while(tempUserDestinationLine[index] != ' ')
+                    {
+                        tempDestination[index] = tempUserDestinationLine[index];
+                        index++;
+                    }
+                    tempDestination[index] = '\0';
+
+                    if(strcmp(tempDestination, bufferDestination) == 0)
+                    {
+                        isVisited = true;
+                        std::cout << tempUserDestinationLine << std::endl;
+                    }
+                }
+
+                currentUserFile.close();
+
+                delete[] currentUserFileName;
+
+            } while (file.getline(tempLine, 1024));
+
+            file.close();
+
+            if(!isVisited)
+            {
+                std::cout << "No one has been there!" << std::endl;
+            }
+
+            std::cout  << std::endl << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;
+
+            std::cin >> choiceAfterLogIn;
+            while(choiceAfterLogIn != 1 && choiceAfterLogIn != 2 && choiceAfterLogIn != 0)
+            {
+                std::cout << "Bad input! Try again: ";
+                std::cin >> choiceAfterLogIn;
+            }
         }
     }
 
+    delete[] fileName;
     return 0;
 }

@@ -1,6 +1,6 @@
 #include "Travel.hpp"
 
-bool checkIfYearIsLeap(const char time[])
+bool Travel::checkIfYearIsLeap(const char time[])
 {
     int year = 0;
     for(int i = 0; i < 4; i++)
@@ -22,7 +22,7 @@ bool checkIfYearIsLeap(const char time[])
     return false;
 }
 
-bool checkIfTimePeriodIsCorrect(const char time[])
+bool Travel::checkIfTimePeriodIsCorrect(const char time[])
 {
     if(time[4] != '-' || time[7] != '-')
     {
@@ -69,7 +69,6 @@ bool checkIfTimePeriodIsCorrect(const char time[])
 
     if(checkIfYearIsLeap(time))
     {
-        std::cout << "t1" <<std::endl;
         if((time[5] == '0' && time[6] == '2') && time[8] == '2' && (time[9] < '0' || time[9] > '9'))
         {
             return false;
@@ -298,7 +297,6 @@ std::istream& operator >> (std::istream& in, Travel& trip)
     in.getline(bufferComment, 1024);
 
     std::cout << "Photos: ";
-    in.ignore();
     in.getline(bufferPhotos, 1024);
 
     trip.copy(bufferDestination, bufferTimeStart, bufferTimeEnd, bufferGrade, bufferComment, bufferPhotos);
@@ -309,7 +307,7 @@ std::istream& operator >> (std::istream& in, Travel& trip)
 std::ostream& operator << (std::ostream& out, const Travel& trip)
 {
     out << trip.destination << ' ' << trip.timePeriodStart << ' ' << trip.timePeriodEnd << ' ' << trip.grade
-        << trip.comment << ' ' << trip.photos << '\n';
+        << ' ' << trip.comment << ' ' << trip.photos << '\n';
     
     return out;
 }

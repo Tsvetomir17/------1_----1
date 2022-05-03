@@ -37,5 +37,4 @@ public:
     friend std::ostream& operator << (std::ostream& out, const User& user);
 };
 
-
 #endif
