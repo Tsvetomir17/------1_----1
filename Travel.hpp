@@ -5,12 +5,16 @@
 #include <cstring>
 #include <fstream>
 
+const size_t TIME_LENGHT = 11;
+const size_t MAX_LENGTH_TRAVEL = 129;
+const size_t MAX_LENGTH_TRAVEL2 = 513;
+
 class Travel
 {
 private:
     char* destination;
-    char timePeriodStart[11];
-    char timePeriodEnd[11];
+    char timePeriodStart[TIME_LENGHT];
+    char timePeriodEnd[TIME_LENGHT];
     int grade;
     char* comment;
     char* photos;

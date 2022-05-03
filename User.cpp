@@ -75,6 +75,8 @@ void User::copy(const char* username, const char* password, const char* emailAdr
         return;
     }
     createFile.close();
+
+    delete[] fileName;
 }
 
 void User::deallocate()
@@ -255,12 +257,12 @@ User& User::operator = (const User& other)
 
 std::istream& operator >> (std::istream& in, User& user)
 {   
-    char bufferUsername[65] = {'\0',}; 
-    char bufferPassword[65] = {'\0',}; 
-    char bufferEmailAdress[65] = {'\0',}; 
+    char bufferUsername[MAX_LENGTH] = {'\0',}; 
+    char bufferPassword[MAX_LENGTH] = {'\0',}; 
+    char bufferEmailAdress[MAX_LENGTH] = {'\0',}; 
     std::cout << "Username: ";
     in.ignore();
-    in.getline(bufferUsername, 65);
+    in.getline(bufferUsername, MAX_LENGTH);
 
     std::cout << "Password: ";
     in >> bufferPassword;

@@ -5,6 +5,8 @@
 #include <cstring>
 #include <fstream>
 
+const size_t MAX_LENGTH = 65;
+
 class User
 {
 private:

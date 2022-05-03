@@ -1,37 +1,31 @@
-#include "User.hpp"
-#include "Travel.hpp"
-/*
-int getRating(const char* arr)
-{
-    int whitespaces = 0;
-    int index = 0;
-    while(whitespaces < 3)
-    {
-        if(arr[index] == ' ')
-            whitespaces++;
-        
-        index++;
-    }
+#include "menu.hpp"
 
-    return arr[index] - '0';
+Menu::Menu() : choice(-1), choiceAfterLogIn(0) {}
+
+void Menu::setUsername(const char* username)
+{
+    strcpy(this->username, username);
 }
 
-int main()
+int Menu::checkInput(int choice) const
 {
-    std::cout << std::endl << std::endl << "Hello! Choose one of the following" << std::endl;
-    std::cout << "1. Register new user\n2. Log in as already created user\n\n0. Exit" << std::endl;
-
-    int choice = -1;
-    int choiceAfterLogIn = 0;
-    std::cin >> choice;
-
-    char username[65] = {'\0',};
-
     while(choice != 1 && choice != 2 && choice != 0)
     {
         std::cout << "Bad input! Try again: ";
         std::cin >> choice;
     }
+
+    return choice;
+}
+
+int Menu::menuFirst()
+{
+    std::cout << std::endl << std::endl << "Hello! Choose one of the following" << std::endl;
+    std::cout << "1. Register new user\n2. Log in as already created user\n\n0. Exit" << std::endl;
+
+    std::cin >> choice;
+
+    checkInput(choice);
 
     while(choice != 0 && choiceAfterLogIn == 0)
     {    
@@ -56,19 +50,15 @@ int main()
 
             std::cin >> choice;
 
-            while(choice != 1 && choice != 2 && choice != 0)
-            {
-                std::cout << "Bad input! Try again: ";
-                std::cin >> choice;
-            }
+            checkInput(choice);
         }
 
         while(choice == 2)
         {
             std::cout << std::endl << "Login as" << std::endl << std::endl;
 
-            char bufferUsername[65] = {'\0',}; 
-            char bufferPassword[65] = {'\0',}; 
+            char bufferUsername[MAX_LENGTH] = {'\0',}; 
+            char bufferPassword[MAX_LENGTH] = {'\0',}; 
             std::cout << "Username: ";
             std::cin.ignore();
             std::cin.getline(bufferUsername, 65);
@@ -83,21 +73,21 @@ int main()
                 return 1;
             }
 
-            char currentUsername[65] = {'\0',};
-            char currentPassword[65] = {'\0',};
-            char tempWord[100] = {'\0',};
+            char currentUsername[MAX_LENGTH] = {'\0',};
+            char currentPassword[MAX_LENGTH] = {'\0',};
+            char tempRow[MAX_TEMP_ROW] = {'\0',};
             int counterForSwitch = 1;
 
             bool flagIfThereIsSuchUser = false;
 
             while(!userDataBase.eof())
             {
-                userDataBase >> tempWord;
+                userDataBase >> tempRow;
 
                 switch (counterForSwitch % 3)
                 {
-                    case 1: strcpy(currentUsername, tempWord); break;
-                    case 2: strcpy(currentPassword, tempWord); break;
+                    case 1: strcpy(currentUsername, tempRow); break;
+                    case 2: strcpy(currentPassword, tempRow); break;
                     default:
                         if((strcmp(currentUsername, bufferUsername) == 0 && strcmp(currentPassword, bufferPassword) == 0))
                         {
@@ -119,25 +109,22 @@ int main()
 
                 std::cin >> choice;
 
-                while(choice != 1 && choice != 2 && choice != 0)
-                {
-                    std::cout << "Bad input! Try again: ";
-                    std::cin >> choice;
-                }
+                checkInput(choice);
             }
             else
             {
                 choiceAfterLogIn = -1;
-                strcpy(username, bufferUsername);
+                setUsername(bufferUsername);
                 choice = -1;
             }
         }
     }
 
-    char* fileName = new char[strlen(username) + 4];
-    strcpy(fileName, username);
-    strcat(fileName, ".db");
+    return choiceAfterLogIn;
+}
 
+int Menu::menuSecond(int choiceAfterLogIn)
+{
     while(choiceAfterLogIn != 0)
     {
         std::cout << std::endl << "Hello, " << username << "!" << std::endl;
@@ -145,11 +132,11 @@ int main()
         std::cout << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;
 
         std::cin >> choiceAfterLogIn;
-        while(choiceAfterLogIn != 1 && choiceAfterLogIn != 2 && choiceAfterLogIn != 0)
-        {
-            std::cout << "Bad input! Try again: ";
-            std::cin >> choiceAfterLogIn;
-        }
+        checkInput(choiceAfterLogIn);
+
+        strcpy(fileName, username);
+        strcat(fileName, ".db");
+        fileName[sizeof(fileName)] = '\0';
 
         while(choiceAfterLogIn == 1)
         {
@@ -168,16 +155,12 @@ int main()
             std::cout << std::endl << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;
 
             std::cin >> choiceAfterLogIn;
-            while(choiceAfterLogIn != 1 && choiceAfterLogIn != 2 && choiceAfterLogIn != 0)
-            {
-                std::cout << "Bad input! Try again: ";
-                std::cin >> choiceAfterLogIn;
-            }
+            checkInput(choiceAfterLogIn);
         }
 
         while(choiceAfterLogIn == 2)
         {
-            char bufferDestination[1025] = {'\0',};
+            char bufferDestination[MAX_LENGTH_TRAVEL] = {'\0',};
             bool isVisited = false;
             float averageGrade = 0;
             int visits = 0;
@@ -194,9 +177,9 @@ int main()
                 return 1;
             }
 
-            char tempUser[65];
-            char tempUserSave[65];
-            char tempLine[1025];
+            char tempUser[MAX_LENGTH];
+            char tempUserSave[MAX_LENGTH];
+            char tempLine[MAX_LENGTH_TRAVEL2];
             
             do
             {
@@ -215,14 +198,14 @@ int main()
                     return 1;
                 }
 
-                char tempDestination[1025];
-                char tempUserDestinationLine[1025];
+                char tempDestination[MAX_LENGTH_TRAVEL];
+                char tempUserDestinationLine[MAX_LENGTH_TRAVEL2];
                 int index = 0;
 
                 while(!currentUserFile.eof())
                 {
                     index = 0;
-                    currentUserFile.getline(tempUserDestinationLine, 1024);
+                    currentUserFile.getline(tempUserDestinationLine, MAX_LENGTH_TRAVEL2 - 1);
 
                     while(tempUserDestinationLine[index] != ' ')
                     {
@@ -244,7 +227,7 @@ int main()
 
                 delete[] currentUserFileName;
 
-            } while (file.getline(tempLine, 1024));
+            } while (file.getline(tempLine, MAX_LENGTH_TRAVEL2 - 1));
 
             file.close();
 
@@ -260,16 +243,24 @@ int main()
             std::cout  << std::endl << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;
 
             std::cin >> choiceAfterLogIn;
-            while(choiceAfterLogIn != 1 && choiceAfterLogIn != 2 && choiceAfterLogIn != 0)
-            {
-                std::cout << "Bad input! Try again: ";
-                std::cin >> choiceAfterLogIn;
-            }
+            checkInput(choiceAfterLogIn);
         }
     }
 
-    delete[] fileName;
-    
     return 0;
 }
-*/
+
+int Menu::getRating(const char* arr)
+{
+    int whitespaces = 0;
+    int index = 0;
+    while(whitespaces < 3)
+    {
+        if(arr[index] == ' ')
+            whitespaces++;
+        
+        index++;
+    }
+
+    return arr[index] - '0';
+}

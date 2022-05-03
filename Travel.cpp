@@ -175,7 +175,7 @@ void Travel::copy(const char* destination, const char timeStart[], const char ti
 
     strcpy(this->destination, destination);
 
-    if(strlen(timeStart) != 10 && strlen(timeEnd) != 10)
+    if(strlen(timeStart) != TIME_LENGHT - 1 && strlen(timeEnd) != TIME_LENGHT - 1)
     {
         std::cout << "Invalid time!" << std::endl;
         this->deallocate();
@@ -271,16 +271,16 @@ Travel& Travel::operator = (const Travel& other)
 
 std::istream& operator >> (std::istream& in, Travel& trip)
 {
-    char bufferDestination[1025] = {'\0',};
-    char bufferTimeStart[11] = {'\0',};
-    char bufferTimeEnd[11] = {'\0',};
+    char bufferDestination[MAX_LENGTH_TRAVEL] = {'\0',};
+    char bufferTimeStart[TIME_LENGHT] = {'\0',};
+    char bufferTimeEnd[TIME_LENGHT] = {'\0',};
     int bufferGrade;
-    char bufferComment[1025] = {'\0',};
-    char bufferPhotos[1025] = {'\0',};
+    char bufferComment[MAX_LENGTH_TRAVEL] = {'\0',};
+    char bufferPhotos[MAX_LENGTH_TRAVEL] = {'\0',};
 
     std::cout << "Destination: ";
     in.ignore();
-    in.getline(bufferDestination, 1024);
+    in.getline(bufferDestination, MAX_LENGTH_TRAVEL - 1);
 
     std::cout << "Time period start: ";
     in >> bufferTimeStart;
@@ -294,10 +294,10 @@ std::istream& operator >> (std::istream& in, Travel& trip)
 
     std::cout << "Comment: ";
     in.ignore();
-    in.getline(bufferComment, 1024);
+    in.getline(bufferComment, MAX_LENGTH_TRAVEL - 1);
 
     std::cout << "Photos: ";
-    in.getline(bufferPhotos, 1024);
+    in.getline(bufferPhotos, MAX_LENGTH_TRAVEL - 1);
 
     trip.copy(bufferDestination, bufferTimeStart, bufferTimeEnd, bufferGrade, bufferComment, bufferPhotos);
 
