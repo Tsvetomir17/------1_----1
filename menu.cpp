@@ -19,14 +19,16 @@ void Menu::checkInputChoice(int userChoice)
     this->choice = tempChoice;
 }
 
-void Menu::checkInputChoiceAfterLogIn(int ch)
+void Menu::checkInputChoiceAfterLogIn(int userChoice)
 {
-    while(ch != 1 && ch != 2 && ch != 0)
+    int tempChoice = userChoice;
+    while(tempChoice != 1 && tempChoice != 2 && tempChoice != 0)
     {
         std::cout << "Bad input! Try again: ";
-        std::cin >> ch;
+        std::cin >> tempChoice;
     }
 
+    this->choiceAfterLogIn = tempChoice;
 }
 
 int Menu::menuFirst()
@@ -131,9 +133,9 @@ int Menu::menuFirst()
     return choiceAfterLogIn;
 }
 
-int Menu::menuSecond(int choiceAfterLogIn)
+int Menu::menuSecond(int choiceAfter)
 {
-    if(choiceAfterLogIn != 0)
+    if(choiceAfter != 0)
     {
         std::cout << std::endl << "Hello, " << username << "!" << std::endl;
         std::cout << "Choose one of the following: " << std::endl;
@@ -169,7 +171,7 @@ int Menu::menuSecond(int choiceAfterLogIn)
         }
 
         while(choiceAfterLogIn == 2)
-        {
+        {   
             char bufferDestination[MAX_LENGTH_TRAVEL] = {'\0',};
             bool isVisited = false;
             float averageGrade = 0;
@@ -208,14 +210,14 @@ int Menu::menuSecond(int choiceAfterLogIn)
                     return 1;
                 }
 
-                char tempDestination[MAX_LENGTH_TRAVEL];
+                char tempDestination[MAX_LENGTH_TRAVEL2];
                 char tempUserDestinationLine[MAX_LENGTH_TRAVEL2];
                 int index = 0;
 
                 while(!currentUserFile.eof())
                 {
                     index = 0;
-                    currentUserFile.getline(tempUserDestinationLine, MAX_LENGTH_TRAVEL2 - 1);
+                    currentUserFile.getline(tempUserDestinationLine, MAX_LENGTH_TRAVEL2);
 
                     while(tempUserDestinationLine[index] != ' ')
                     {
@@ -223,7 +225,7 @@ int Menu::menuSecond(int choiceAfterLogIn)
                         index++;
                     }
                     tempDestination[index] = '\0';
-
+                    
                     if(strcmp(tempDestination, bufferDestination) == 0)
                     {
                         isVisited = true;
@@ -237,8 +239,8 @@ int Menu::menuSecond(int choiceAfterLogIn)
 
                 delete[] currentUserFileName;
 
-            } while (file.getline(tempLine, MAX_LENGTH_TRAVEL2 - 1));
-
+            } while (file.getline(tempLine, MAX_LENGTH_TRAVEL2));
+            
             file.close();
 
             if(!isVisited)

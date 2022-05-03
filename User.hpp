@@ -5,7 +5,7 @@
 #include <cstring>
 #include <fstream>
 
-const size_t MAX_LENGTH = 65;
+const int MAX_LENGTH = 65;
 
 class User
 {

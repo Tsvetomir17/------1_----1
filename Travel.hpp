@@ -5,9 +5,9 @@
 #include <cstring>
 #include <fstream>
 
-const size_t TIME_LENGHT = 11;
-const size_t MAX_LENGTH_TRAVEL = 129;
-const size_t MAX_LENGTH_TRAVEL2 = 513;
+const int TIME_LENGHT = 11;
+const int MAX_LENGTH_TRAVEL = 129;
+const int MAX_LENGTH_TRAVEL2 = 1025;
 
 class Travel
 {
