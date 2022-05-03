@@ -1,6 +1,21 @@
 #include "User.hpp"
 #include "Travel.hpp"
 
+int getRating(const char* arr)
+{
+    int whitespaces = 0;
+    int index = 0;
+    while(whitespaces < 3)
+    {
+        if(arr[index] == ' ')
+            whitespaces++;
+        
+        index++;
+    }
+
+    return arr[index] - '0';
+}
+
 int main()
 {
     std::cout << std::endl << std::endl << "Hello! Choose one of the following" << std::endl;
@@ -164,6 +179,8 @@ int main()
         {
             char bufferDestination[1025] = {'\0',};
             bool isVisited = false;
+            float averageGrade = 0;
+            int visits = 0;
 
             std::cout << "Which destination would you like to check: ";
             std::cin >> bufferDestination;
@@ -217,6 +234,8 @@ int main()
                     if(strcmp(tempDestination, bufferDestination) == 0)
                     {
                         isVisited = true;
+                        averageGrade += getRating(tempUserDestinationLine);
+                        visits++;
                         std::cout << tempUserDestinationLine << std::endl;
                     }
                 }
@@ -232,6 +251,10 @@ int main()
             if(!isVisited)
             {
                 std::cout << "No one has been there!" << std::endl;
+            }
+            else
+            {
+                std::cout << "Average rating: " << averageGrade / visits<< std::endl;
             }
 
             std::cout  << std::endl << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;

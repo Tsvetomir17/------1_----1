@@ -311,3 +311,4 @@ std::ostream& operator << (std::ostream& out, const Travel& trip)
     
     return out;
 }
+
