@@ -7,25 +7,35 @@ void Menu::setUsername(const char* username)
     strcpy(this->username, username);
 }
 
-int Menu::checkInput(int choice) const
+void Menu::checkInputChoice(int userChoice)
 {
-    while(choice != 1 && choice != 2 && choice != 0)
+    int tempChoice = userChoice;
+    while(tempChoice != 1 && tempChoice != 2 && tempChoice != 0)
     {
         std::cout << "Bad input! Try again: ";
-        std::cin >> choice;
+        std::cin >> tempChoice;
     }
 
-    return choice;
+    this->choice = tempChoice;
+}
+
+void Menu::checkInputChoiceAfterLogIn(int ch)
+{
+    while(ch != 1 && ch != 2 && ch != 0)
+    {
+        std::cout << "Bad input! Try again: ";
+        std::cin >> ch;
+    }
+
 }
 
 int Menu::menuFirst()
 {
     std::cout << std::endl << std::endl << "Hello! Choose one of the following" << std::endl;
-    std::cout << "1. Register new user\n2. Log in as already created user\n\n0. Exit" << std::endl;
-
+    printMenuFirst();
     std::cin >> choice;
 
-    checkInput(choice);
+    checkInputChoice(choice);
 
     while(choice != 0 && choiceAfterLogIn == 0)
     {    
@@ -46,11 +56,10 @@ int Menu::menuFirst()
 
             userDataBase.close();
 
-            std::cout << "1. Register new user\n2. Log in as already created user\n\n0. Exit" << std::endl;
-
+            printMenuFirst();
             std::cin >> choice;
 
-            checkInput(choice);
+            checkInputChoice(choice);
         }
 
         while(choice == 2)
@@ -105,11 +114,10 @@ int Menu::menuFirst()
             if(!flagIfThereIsSuchUser)
             {
                 std::cout << "Wrong username or password" << std::endl;
-                std::cout << "1. Register new user\n2. Log in as already created user\n\n0. Exit" << std::endl;
-
+                printMenuFirst();
                 std::cin >> choice;
 
-                checkInput(choice);
+                checkInputChoice(choice);
             }
             else
             {
@@ -125,19 +133,22 @@ int Menu::menuFirst()
 
 int Menu::menuSecond(int choiceAfterLogIn)
 {
-    while(choiceAfterLogIn != 0)
+    if(choiceAfterLogIn != 0)
     {
         std::cout << std::endl << "Hello, " << username << "!" << std::endl;
         std::cout << "Choose one of the following: " << std::endl;
-        std::cout << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;
+        printMenuSecond();
 
         std::cin >> choiceAfterLogIn;
-        checkInput(choiceAfterLogIn);
+        checkInputChoiceAfterLogIn(choiceAfterLogIn);
 
         strcpy(fileName, username);
         strcat(fileName, ".db");
         fileName[sizeof(fileName)] = '\0';
+    }
 
+    while(choiceAfterLogIn != 0)
+    {
         while(choiceAfterLogIn == 1)
         {
             Travel trip;
@@ -152,10 +163,9 @@ int Menu::menuSecond(int choiceAfterLogIn)
 
             file << trip;
             file.close();
-            std::cout << std::endl << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;
-
+            printMenuSecond();
             std::cin >> choiceAfterLogIn;
-            checkInput(choiceAfterLogIn);
+            checkInputChoiceAfterLogIn(choiceAfterLogIn);
         }
 
         while(choiceAfterLogIn == 2)
@@ -194,7 +204,7 @@ int Menu::menuSecond(int choiceAfterLogIn)
                 std::ifstream currentUserFile(currentUserFileName);
                 if(!currentUserFile.is_open())
                 {
-                    std::cout << "Problem opening file!!!!!!!" << std::endl;
+                    std::cout << "Problem opening file!" << std::endl;
                     return 1;
                 }
 
@@ -240,10 +250,9 @@ int Menu::menuSecond(int choiceAfterLogIn)
                 std::cout << "Average rating: " << averageGrade / visits<< std::endl;
             }
 
-            std::cout  << std::endl << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;
-
+            printMenuSecond();
             std::cin >> choiceAfterLogIn;
-            checkInput(choiceAfterLogIn);
+            checkInputChoiceAfterLogIn(choiceAfterLogIn);
         }
     }
 
@@ -263,4 +272,14 @@ int Menu::getRating(const char* arr)
     }
 
     return arr[index] - '0';
+}
+
+void Menu::printMenuFirst() const
+{
+    std::cout << "1. Register new user\n2. Log in as already created user\n\n0. Exit" << std::endl;
+}
+
+void Menu::printMenuSecond() const
+{
+    std::cout  << std::endl << "1. Add trip\n2. Check destination\n\n0. Exit" << std::endl;
 }

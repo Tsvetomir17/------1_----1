@@ -18,12 +18,16 @@ public:
     Menu();
 
     void setUsername(const char* username);
-
-    int checkInput(int choice) const;
+    
+    void checkInputChoice(int userChoice);
+    void checkInputChoiceAfterLogIn(int userChoice);
     int menuFirst();
     int menuSecond(int choiceAfterLogIn);
 
     int getRating(const char* arr);
+
+    void printMenuFirst() const;
+    void printMenuSecond() const;
 };
 
 #endif
