@@ -36,7 +36,6 @@ public:
 
     friend std::istream& operator >> (std::istream& in, Travel& trip);
     friend std::ostream& operator << (std::ostream& out, const Travel& trip);
-
 };
 
 
