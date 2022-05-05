@@ -2,7 +2,7 @@
 
 Menu::Menu() : choice(-1), choiceAfterLogIn(0) {}
 
-void Menu::setUsername(const char* username)
+void Menu::saveUsername(const char* username)
 {
     strcpy(this->username, username);
 }
@@ -124,7 +124,7 @@ int Menu::menuFirst()
             else
             {
                 choiceAfterLogIn = -1;
-                setUsername(bufferUsername);
+                saveUsername(bufferUsername);
                 choice = -1;
             }
         }
