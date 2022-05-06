@@ -10,6 +10,7 @@ void Menu::saveUsername(const char* username)
 void Menu::checkInputChoice(int userChoice)
 {
     int tempChoice = userChoice;
+
     while(tempChoice != 1 && tempChoice != 2 && tempChoice != 0)
     {
         std::cout << "Bad input! Try again: ";
@@ -22,6 +23,7 @@ void Menu::checkInputChoice(int userChoice)
 void Menu::checkInputChoiceAfterLogIn(int userChoice)
 {
     int tempChoice = userChoice;
+
     while(tempChoice != 1 && tempChoice != 2 && tempChoice != 0)
     {
         std::cout << "Bad input! Try again: ";
@@ -70,6 +72,7 @@ int Menu::menuFirst()
 
             char bufferUsername[MAX_LENGTH] = {'\0',}; 
             char bufferPassword[MAX_LENGTH] = {'\0',}; 
+
             std::cout << "Username: ";
             std::cin.ignore();
             std::cin.getline(bufferUsername, 65);
@@ -88,7 +91,6 @@ int Menu::menuFirst()
             char currentPassword[MAX_LENGTH] = {'\0',};
             char tempRow[MAX_TEMP_ROW] = {'\0',};
             int counterForSwitch = 1;
-
             bool flagIfThereIsSuchUser = false;
 
             while(!userDataBase.eof())
@@ -124,8 +126,8 @@ int Menu::menuFirst()
             else
             {
                 choiceAfterLogIn = -1;
-                saveUsername(bufferUsername);
                 choice = -1;
+                saveUsername(bufferUsername);
             }
         }
     }
@@ -146,6 +148,7 @@ int Menu::menuSecond(int choiceAfter)
 
         strcpy(fileName, username);
         strcat(fileName, ".db");
+
         fileName[sizeof(fileName)] = '\0';
     }
 
@@ -165,6 +168,7 @@ int Menu::menuSecond(int choiceAfter)
 
             file << trip;
             file.close();
+
             printMenuSecond();
             std::cin >> choiceAfterLogIn;
             checkInputChoiceAfterLogIn(choiceAfterLogIn);
@@ -199,7 +203,8 @@ int Menu::menuSecond(int choiceAfter)
                 if(strcmp(tempUserSave, tempUser) == 0) break;
                 else strcpy(tempUserSave, tempUser);
 
-                char* currentUserFileName = new char[strlen(tempUser) + 4];
+                char* currentUserFileName = new (std::nothrow) char[strlen(tempUser) + 4];
+
                 strcpy(currentUserFileName, tempUser);
                 strcat(currentUserFileName, ".db");
 
@@ -224,6 +229,7 @@ int Menu::menuSecond(int choiceAfter)
                         tempDestination[index] = tempUserDestinationLine[index];
                         index++;
                     }
+
                     tempDestination[index] = '\0';
                     
                     if(strcmp(tempDestination, bufferDestination) == 0)
@@ -231,6 +237,7 @@ int Menu::menuSecond(int choiceAfter)
                         isVisited = true;
                         averageGrade += getRating(tempUserDestinationLine);
                         visits++;
+
                         std::cout << tempUserDestinationLine << std::endl;
                     }
                 }
@@ -265,10 +272,10 @@ int Menu::getRating(const char* arr)
 {
     int whitespaces = 0;
     int index = 0;
+
     while(whitespaces < 3)
     {
-        if(arr[index] == ' ')
-            whitespaces++;
+        if(arr[index] == ' ') whitespaces++;
         
         index++;
     }

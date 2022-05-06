@@ -1,5 +1,7 @@
 var files_dup =
 [
+    [ "Date.cpp", "_date_8cpp.html", "_date_8cpp" ],
+    [ "Date.hpp", "_date_8hpp.html", "_date_8hpp" ],
     [ "main.cpp", "main_8cpp.html", "main_8cpp" ],
     [ "menu.cpp", "menu_8cpp.html", null ],
     [ "menu.hpp", "menu_8hpp.html", "menu_8hpp" ],

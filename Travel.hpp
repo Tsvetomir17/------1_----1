@@ -4,9 +4,7 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
-
-/// Константа за размер на периода
-const int TIME_LENGHT = 11;
+#include "Date.hpp"
 
 /// Константа за максималния размер на всяка една от данните (дестинация, коментар и снимките) при въвеждането им
 const int MAX_LENGTH_TRAVEL = 129;
@@ -25,12 +23,9 @@ private:
     /// Динамично заделен масив за дестинацията
     char* destination;
 
-    /// Масив за началото на периода на пътуването
-    char timePeriodStart[TIME_LENGHT];
-
-    /// Масив за края на периода на пътуването
-    char timePeriodEnd[TIME_LENGHT];
-
+    /// Променлива от тип Date за периода на пътуването
+    Date timePeriod;
+    
     /// Променлива за оценка на пътуването
     int grade;
 
@@ -40,29 +35,17 @@ private:
     /// Динамично заделен масив за множеството от снимки
     char* photos;
 
-    /// Проверява дали годината от периода е високосна
-    ///
-    /// @param time подава се целият период (начален или краен)
-    bool checkIfYearIsLeap(const char time[]);
-
-    /// Проверява коректността на периода (дали е във формат гггг-мм-дд)
-    bool checkIfTimePeriodIsCorrect(const char time[]);
-
-    /// Проверява дали датата на началния период е преди датата на крайния период
-    bool comparePeriodStartAndEnd(const char timeStart[], const char timeEnd[]);
-
     /// Проверява дали снимките в множеството са с правилен формат (.jpeg или .png)
     bool checkPhotosValidation(const char* photos);
 
     /// По подадените параметри създава пътуване
     ///
     /// @param destination въведената от потребителя дестинация
-    /// @param timeStart въведеното от потребителя начало на периода
-    /// @param timeEnd въведеният от потребителя край на периода
+    /// @param time въведеният от потребителя период
     /// @param grade въведената от потребителя оценка
     /// @param comment въведеният от потребителя коментар
     /// @param photos въведеното от потребителя множество от снимки
-    void copy(const char* destination, const char timeStart[], const char timeEnd[], const int grade, const char* comment, const char* photos);
+    void copy(const char* destination, const Date time, const int grade, const char* comment, const char* photos);
 
     /// Изчиства цялата динамична памет. Използва в деструктора
     void deallocate();
@@ -71,9 +54,6 @@ public:
 
     /// Конструктор по подразбиране
     Travel();
-
-    /// Конструктор с параметри
-    Travel(const char* destination, const char timeStart[], const char timeEnd[], const int grade, const char* comment, const char* photos);
 
     /// Конструктор за копиране
     Travel(const Travel& other);

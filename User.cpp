@@ -4,51 +4,35 @@ void User::copy(const char* username, const char* password, const char* emailAdr
 {
     if(checkIfUsernameIsCorrect(username))
     {
-        this->username = new char[strlen(username) + 1];
-
-        if(!this->username)
-        {
-            this->deallocate();
-            std::cout << "Memory problem" << std::endl;
-            return;
-        }
+        this->username = new (std::nothrow) char[strlen(username) + 1];
 
         strcpy(this->username, username);
-    }
-    
+    }  
     else
     {
         std::cout << "Invalid username!" << std::endl;
         return;
     }
 
-
-    this->password = new char[strlen(password) + 1];
-
-    if(!this->password)
+    if(password != nullptr)
     {
-        this->deallocate();
-        std::cout << "Memory problem" << std::endl;
-        return;
+        this->password = new (std::nothrow) char[strlen(password) + 1];
+
+        strcpy(this->password, password);
     }
-
-    strcpy(this->password, password);
-
+    else
+    {
+        std::cout << "Invalid username!" << std::endl;
+        this->deallocate();
+        return; 
+    }
 
     if(checkIfEmailAdressIsCorrect(emailAdress))
     {   
-        this->emailAdress = new char[strlen(emailAdress) + 1];
-
-        if(!this->emailAdress)
-        {
-            this->deallocate();
-            std::cout << "Memory problem" << std::endl;
-            return;
-        }
+        this->emailAdress = new (std::nothrow) char[strlen(emailAdress) + 1];
 
         strcpy(this->emailAdress, emailAdress);
     }
-
     else
     {
         std::cout << "Invalid email adress!" << std::endl;
@@ -57,13 +41,7 @@ void User::copy(const char* username, const char* password, const char* emailAdr
     }
 
 
-    char* fileName = new char[strlen(username) + 4];
-
-    if(!fileName)
-    {
-        std::cout << "Memory problem" << std::endl;
-        return;
-    }
+    char* fileName = new (std::nothrow) char[strlen(username) + 4];
 
     strcpy(fileName, username);
     strcat(fileName, ".db");
@@ -93,7 +71,10 @@ void User::deallocate()
 
 bool User::checkIfUsernameIsCorrect(const char* username)
 {
+    if(username == nullptr) return false;
+
     int usernameSize = strlen(username);
+    
     for(int i = 0; i < usernameSize; i++)
     {
         if((username[i] < 'a' || username[i] > 'z') && (username[i] < 'A' || username[i] > 'Z') && (username[i] < '0' || username[i] > '9') || username[i] == ' ')
@@ -102,11 +83,46 @@ bool User::checkIfUsernameIsCorrect(const char* username)
         }
     }
 
+    std::ifstream file("UserDataBase.txt");
+
+    if(!file.is_open())
+    {
+        return false;
+    }
+
+    char tempUserName[MAX_LENGTH];
+    char tempUserLine[MAX_TEMP_ROW];
+    int index = 0;
+
+    while(!file.eof())
+    {
+        index = 0;
+        file.getline(tempUserLine, MAX_TEMP_ROW);
+
+        while(tempUserLine[index] != ' ')
+        {
+            tempUserName[index] = tempUserLine[index];
+            index++;
+        }
+
+        tempUserName[index] = '\0';
+
+        if(strcmp(tempUserName, username) == 0)
+        {
+            std::cout << "Username is taken!" << std::endl;
+            return false;
+        }
+    }
+
+    file.close();
+    
     return true;
 }
 
 bool User::checkIfEmailAdressIsCorrect(const char* emailAdress)
 {
+    if(emailAdress == nullptr) return false;
+
     bool emailSymbolFlag = false;
 
     int size = strlen(emailAdress);
@@ -120,7 +136,7 @@ bool User::checkIfEmailAdressIsCorrect(const char* emailAdress)
             i++;
         }
 
-        if(emailSymbolFlag == true && emailAdress[i] == '.' && (i+1) < size)
+        if(emailSymbolFlag && emailAdress[i] == '.' && (i+1) < size)
         {
             return true;
         }
@@ -148,102 +164,6 @@ User::~User()
     this->deallocate();
 }
 
-const char* User::getUsername() const
-{
-    return this->username;
-}
-
-const char* User::getPassword() const
-{
-    return this->password;
-}
-
-const char* User::getEmailAdress() const
-{
-    return this->emailAdress;
-}
-
-void User::setUsername(const char* username)
-{
-
-    if(checkIfUsernameIsCorrect(username))
-    {
-        if(this->username != nullptr)
-        {
-            delete[] this->username;
-            this->username = nullptr;
-        }
-
-        this->username = new char[strlen(username) + 1];
-
-        if(!this->username)
-        {
-            this->deallocate();
-            std::cout << "Memory problem" << std::endl;
-            return;
-        }
-
-        strcpy(this->username, username);
-    }
-    
-    else
-    {
-        std::cout << "Invalid username!" << std::endl;
-        return;
-    }
-
-}
-
-void User::setPassword(const char* password)
-{
-    if(this->password != nullptr)
-    {
-        delete[] this->password;
-        this->password = nullptr;
-    }
-
-    this->password = new char[strlen(password) + 1];
-
-    if(!this->password)
-    {
-        this->deallocate();
-        std::cout << "Memory problem" << std::endl;
-        return;
-    }
-
-    strcpy(this->password, password);
-}
-
-void User::setEmailAdress(const char* emailAdress)
-{
-    if(checkIfEmailAdressIsCorrect(emailAdress))
-    {   
-        if(this->emailAdress != nullptr)
-        {
-            delete[] this->emailAdress;
-            this->password = nullptr;
-        }
-
-        this->emailAdress = new char[strlen(emailAdress) + 1];
-
-        if(!this->emailAdress)
-        {
-            this->deallocate();
-            std::cout << "Memory problem" << std::endl;
-            return;
-        }
-
-        strcpy(this->emailAdress, emailAdress);
-    }
-
-    else
-    {
-        std::cout << "Invalid email adress!" << std::endl;
-        this->deallocate();
-        return;
-    }
-}
-
 User& User::operator = (const User& other)
 {
     if(this != &other)
@@ -260,6 +180,7 @@ std::istream& operator >> (std::istream& in, User& user)
     char bufferUsername[MAX_LENGTH] = {'\0',}; 
     char bufferPassword[MAX_LENGTH] = {'\0',}; 
     char bufferEmailAdress[MAX_LENGTH] = {'\0',}; 
+
     std::cout << "Username: ";
     in.ignore();
     in.getline(bufferUsername, MAX_LENGTH);

@@ -5,6 +5,9 @@
 #include <cstring>  
 #include <fstream>
 
+/// Константа, която се използва, когато е нужно взимането на цялата информация за даден потребител
+const int MAX_TEMP_ROW = 200;
+
 /// Константа за максималния размер на всяка една от данните (потребителско име, парола и имейл адрес) при въвеждането им
 const int MAX_LENGTH = 65;
 
@@ -53,24 +56,6 @@ public:
 
     /// Деструктор
     ~User();
-
-    /// Селектор за потребителското име
-    const char* getUsername() const;
-
-    /// Селектор за паролата
-    const char* getPassword() const;
-
-    /// Селектор за имейл адреса
-    const char* getEmailAdress() const;
-
-    /// Мутатор за потребителското име
-    void setUsername(const char* username);
-
-    /// Мутатор за паролата
-    void setPassword(const char* password);
-
-    /// Мутатор за имейл адреса
-    void setEmailAdress(const char* emailAdress);
 
     /// Предефиниран оператор равно
     User& operator = (const User& other);
