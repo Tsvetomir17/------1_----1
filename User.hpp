@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstring>  
 #include <fstream>
+#include <string.h>
 
 /// Константа, която се използва, когато е нужно взимането на цялата информация за даден потребител
 const int MAX_TEMP_ROW = 200;

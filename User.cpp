@@ -107,8 +107,26 @@ bool User::checkIfUsernameIsCorrect(const char* username)
 
         tempUserName[index] = '\0';
 
-        if(strcmp(tempUserName, username) == 0)
+        index = 0;
+        while(tempUserName[index] != '\0' || username[index] != '\0')
         {
+            if((tempUserName[index] >= 'A' && tempUserName[index] <= 'Z' && username[index] == tempUserName[index] + ' ') ||
+               (username[index] >= 'A' && username[index] <= 'Z' && tempUserName[index] == username[index] + ' ') || // сравнява дали съвпават малка с голяма буква
+               (tempUserName[index] == username[index]))  // сравнява дали са еднакви буквите
+            {
+                index++;
+            }
+
+            else
+            {
+                
+                break;
+            }
+        }
+
+        if(tempUserName[index] == '\0' && username[index] == '\0')
+        {
+            file.close();
             std::cout << "Username is taken!" << std::endl;
             return false;
         }
