@@ -128,14 +128,14 @@ Travel& Travel::operator = (const Travel& other)
 
 std::istream& operator >> (std::istream& in, Travel& trip)
 {
-    char bufferDestination[MAX_LENGTH_TRAVEL] = {'\0',};
+    char bufferDestination[Travel::MAX_LENGTH_TRAVEL] = {'\0',};
     int bufferGrade;
-    char bufferComment[MAX_LENGTH_TRAVEL] = {'\0',};
-    char bufferPhotos[MAX_LENGTH_TRAVEL] = {'\0',};
+    char bufferComment[Travel::MAX_LENGTH_TRAVEL] = {'\0',};
+    char bufferPhotos[Travel::MAX_LENGTH_TRAVEL] = {'\0',};
 
     std::cout << "Destination: ";
     in.ignore();
-    in.getline(bufferDestination, MAX_LENGTH_TRAVEL - 1);
+    in.getline(bufferDestination,  Travel::MAX_LENGTH_TRAVEL - 1);
 
     in >> trip.timePeriod;
 
@@ -145,10 +145,10 @@ std::istream& operator >> (std::istream& in, Travel& trip)
 
     std::cout << "Comment: ";
     in.ignore();
-    in.getline(bufferComment, MAX_LENGTH_TRAVEL - 1);
+    in.getline(bufferComment, Travel::MAX_LENGTH_TRAVEL - 1);
 
     std::cout << "Photos: ";
-    in.getline(bufferPhotos, MAX_LENGTH_TRAVEL - 1);
+    in.getline(bufferPhotos, Travel::MAX_LENGTH_TRAVEL - 1);
 
     trip.copy(bufferDestination, trip.timePeriod, bufferGrade, bufferComment, bufferPhotos);
 
@@ -162,4 +162,3 @@ std::ostream& operator << (std::ostream& out, const Travel& trip)
     
     return out;
 }
-

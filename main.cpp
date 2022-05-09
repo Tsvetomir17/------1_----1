@@ -21,9 +21,7 @@
 /// Третата опция е програмата да приключи
 int main()
 {
-    Menu menu;
-    
-    menu.menuSecond(menu.menuFirst());
+    Menu::start().menuSecond(Menu::start().menuFirst());
 
     return 0;
 }

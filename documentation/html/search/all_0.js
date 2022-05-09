@@ -11,5 +11,6 @@ var searchData=
   ['choiceafterlogin_8',['choiceAfterLogIn',['../class_menu.html#aa121983b063e5689482b800648ac2eff',1,'Menu']]],
   ['comment_9',['comment',['../class_travel.html#a64d84152797d2aec95bfba5fc4869c50',1,'Travel']]],
   ['compareperiodstartandend_10',['comparePeriodStartAndEnd',['../class_date.html#a7b8ceb06b60904ee871301ca1b631a4e',1,'Date']]],
-  ['copy_11',['copy',['../class_travel.html#a6469b9a49379b4cef8124cc55ad1a783',1,'Travel::copy()'],['../class_user.html#aee3e12a73807a68982aba3fcf7021498',1,'User::copy()']]]
+  ['copy_11',['copy',['../class_travel.html#a6469b9a49379b4cef8124cc55ad1a783',1,'Travel::copy()'],['../class_user.html#aee3e12a73807a68982aba3fcf7021498',1,'User::copy()']]],
+  ['counter_12',['counter',['../class_menu.html#a6399e141c6edcb0e9eb9c70ead59fcd8',1,'Menu']]]
 ];

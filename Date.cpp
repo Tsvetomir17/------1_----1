@@ -143,9 +143,9 @@ const char* Date::getEnd() const
 
 std::istream& operator >> (std::istream& in, Date& date)
 {
-    char bufferTimeStart[TIME_LENGHT] = {'\0',};
-    char bufferTimeEnd[TIME_LENGHT] = {'\0',};
-    
+    char bufferTimeStart[Date::TIME_LENGHT] = {'\0',};
+    char bufferTimeEnd[Date::TIME_LENGHT] = {'\0',};
+
     std::cout << "Note: The date format must be: yyyy-mm-dd" << std::endl;
     std::cout << "      (use the - symbol for separator)!  " << std::endl;
 

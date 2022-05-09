@@ -195,13 +195,13 @@ User& User::operator = (const User& other)
 
 std::istream& operator >> (std::istream& in, User& user)
 {   
-    char bufferUsername[MAX_LENGTH] = {'\0',}; 
-    char bufferPassword[MAX_LENGTH] = {'\0',}; 
-    char bufferEmailAdress[MAX_LENGTH] = {'\0',}; 
+    char bufferUsername[User::MAX_LENGTH] = {'\0',}; 
+    char bufferPassword[User::MAX_LENGTH] = {'\0',}; 
+    char bufferEmailAdress[User::MAX_LENGTH] = {'\0',}; 
 
     std::cout << "Username: ";
     in.ignore();
-    in.getline(bufferUsername, MAX_LENGTH);
+    in.getline(bufferUsername, User::MAX_LENGTH);
 
     std::cout << "Password: ";
     in >> bufferPassword;

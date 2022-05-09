@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['user_0',['User',['../class_user.html',1,'User'],['../class_user.html#a4a0137053e591fbb79d9057dd7d2283d',1,'User::User()'],['../class_user.html#ab88020b23839a580ee177d7607bfb3a3',1,'User::User(const char *username, const char *password, const char *emailAdress)'],['../class_user.html#aad23b10cdefd26d6ca2ca981e9f9c973',1,'User::User(const User &amp;other)']]],
-  ['user_2ecpp_1',['User.cpp',['../_user_8cpp.html',1,'']]],
-  ['user_2ehpp_2',['User.hpp',['../_user_8hpp.html',1,'']]],
-  ['username_3',['username',['../class_menu.html#ad31cb54e1b485bae95e744de61a7a393',1,'Menu::username()'],['../class_user.html#aa5a1a545c2690cf801b6624596ce6cf4',1,'User::username()']]]
+  ['time_5flenght_0',['TIME_LENGHT',['../class_date.html#aac2334ad93324adef0aa9a16d1a28534',1,'Date']]],
+  ['timeperiod_1',['timePeriod',['../class_travel.html#ab08e2b6ccef0a0e1546a678962d8fd5d',1,'Travel']]],
+  ['timeperiodend_2',['timePeriodEnd',['../class_date.html#ae148fb280124033c9c4aab5c835752cf',1,'Date']]],
+  ['timeperiodstart_3',['timePeriodStart',['../class_date.html#a047ae727c53e119f2468c47884ad48de',1,'Date']]],
+  ['travel_4',['Travel',['../class_travel.html',1,'Travel'],['../class_travel.html#acc3bc73b916e588699d18ba7d4bb25c2',1,'Travel::Travel()'],['../class_travel.html#a3e9aed48a34eb599a80eab350c9813ca',1,'Travel::Travel(const Travel &amp;other)']]],
+  ['travel_2ecpp_5',['Travel.cpp',['../_travel_8cpp.html',1,'']]],
+  ['travel_2ehpp_6',['Travel.hpp',['../_travel_8hpp.html',1,'']]]
 ];

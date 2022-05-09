@@ -4,9 +4,6 @@
 #include <iostream>
 #include <cstring>
 
-/// Константа за размер на периода
-const int TIME_LENGHT = 11;
-
 /// Този клас се използва за периода на пътуванията
 ///
 /// Класът има два масива, съдържащи началото и края на периода на пътуването.
@@ -14,6 +11,9 @@ const int TIME_LENGHT = 11;
 class Date
 {
 private:
+
+    /// Константа за размер на периода
+    static const int TIME_LENGHT = 11;
 
     /// Масив за началото на периода на пътуването
     char timePeriodStart[TIME_LENGHT];
@@ -51,6 +51,8 @@ public:
 
     /// Приятелска фунцкия за извеждане на периода
     friend std::ostream& operator << (std::ostream& out, const Date& date);
+
 };
+
 
 #endif

@@ -10,7 +10,7 @@
 class Menu
 {
 private:
-
+    
     /// Променлива за избора на потребителя в първото меню на програмата
     int choice;
 
@@ -18,15 +18,21 @@ private:
     int choiceAfterLogIn;
 
     /// Масив, който запазва името на потребителя, който в момента работи с второто меню
-    char username[MAX_LENGTH];
+    char username[User::MAX_LENGTH];
 
     /// Масив, който запазва името на файла на потребителя, който в момента работи с второто меню
-    char fileName[MAX_LENGTH + 4];
+    char fileName[User::MAX_LENGTH + 4];
 
-public:
+    /// Помощна променлива за синглетон
+    static int counter;
+    
+    /// Помощна променлива за синглетон
+    int id;
 
     /// Конструктор по подразбиране
     Menu();
+
+public:
 
     /// Мутатор, чрез който се запазва името на потребителя, който в момента работи с второто меню
     void saveUsername(const char* username);
@@ -61,11 +67,13 @@ public:
     /// @return Връща оценката като цяло число
     int getRating(const char* arr);
 
+    /// Функция за стартиране на програмата
+    static Menu& start();
+
     /// Извежда информацията за първото меню на програмата
     void printMenuFirst() const;
 
     /// Извежда информация за второто меню на програмата
     void printMenuSecond() const;
 };
-
 #endif

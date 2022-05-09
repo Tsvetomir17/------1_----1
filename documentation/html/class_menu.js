@@ -11,6 +11,7 @@ var class_menu =
     [ "saveUsername", "class_menu.html#a8b587ef3a08ed43d04e70a4d4eb978ae", null ],
     [ "choice", "class_menu.html#ad5152b40c2819510f9e74600f4b510ad", null ],
     [ "choiceAfterLogIn", "class_menu.html#aa121983b063e5689482b800648ac2eff", null ],
-    [ "fileName", "class_menu.html#a91587eb917eba481a79fd4ab9c416664", null ],
-    [ "username", "class_menu.html#ad31cb54e1b485bae95e744de61a7a393", null ]
+    [ "fileName", "class_menu.html#a72a067659904a0ade3e0ba2c4bddf607", null ],
+    [ "id", "class_menu.html#aac3b853a64aca7ef6e70fceae8c126be", null ],
+    [ "username", "class_menu.html#acce4ed016501b2869706776e4f794b0b", null ]
 ];

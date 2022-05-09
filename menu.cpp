@@ -1,6 +1,8 @@
 #include "menu.hpp"
 
-Menu::Menu() : choice(-1), choiceAfterLogIn(0) {}
+int Menu::counter = 0;
+
+Menu::Menu() : choice(-1), choiceAfterLogIn(0), id(counter++) {}
 
 void Menu::saveUsername(const char* username)
 {
@@ -70,8 +72,8 @@ int Menu::menuFirst()
         {
             std::cout << std::endl << "Login as" << std::endl << std::endl;
 
-            char bufferUsername[MAX_LENGTH] = {'\0',}; 
-            char bufferPassword[MAX_LENGTH] = {'\0',}; 
+            char bufferUsername[User::MAX_LENGTH] = {'\0',}; 
+            char bufferPassword[User::MAX_LENGTH] = {'\0',}; 
 
             std::cout << "Username: ";
             std::cin.ignore();
@@ -87,9 +89,9 @@ int Menu::menuFirst()
                 return 1;
             }
 
-            char currentUsername[MAX_LENGTH] = {'\0',};
-            char currentPassword[MAX_LENGTH] = {'\0',};
-            char tempRow[MAX_TEMP_ROW] = {'\0',};
+            char currentUsername[User::MAX_LENGTH] = {'\0',};
+            char currentPassword[User::MAX_LENGTH] = {'\0',};
+            char tempRow[User::MAX_TEMP_ROW] = {'\0',};
             int counterForSwitch = 1;
             bool flagIfThereIsSuchUser = false;
 
@@ -176,7 +178,7 @@ int Menu::menuSecond(int choiceAfter)
 
         while(choiceAfterLogIn == 2)
         {   
-            char bufferDestination[MAX_LENGTH_TRAVEL] = {'\0',};
+            char bufferDestination[Travel::MAX_LENGTH_TRAVEL] = {'\0',};
             bool isVisited = false;
             float averageGrade = 0;
             int visits = 0;
@@ -193,9 +195,9 @@ int Menu::menuSecond(int choiceAfter)
                 return 1;
             }
 
-            char tempUser[MAX_LENGTH];
-            char tempUserSave[MAX_LENGTH];
-            char tempLine[MAX_LENGTH_TRAVEL2];
+            char tempUser[User::MAX_LENGTH];
+            char tempUserSave[User::MAX_LENGTH];
+            char tempLine[Travel::MAX_LENGTH_TRAVEL2];
             
             do
             {
@@ -215,14 +217,14 @@ int Menu::menuSecond(int choiceAfter)
                     return 1;
                 }
 
-                char tempDestination[MAX_LENGTH_TRAVEL2];
-                char tempUserDestinationLine[MAX_LENGTH_TRAVEL2];
+                char tempDestination[Travel::MAX_LENGTH_TRAVEL2];
+                char tempUserDestinationLine[Travel::MAX_LENGTH_TRAVEL2];
                 int index = 0;
 
                 while(!currentUserFile.eof())
                 {
                     index = 0;
-                    currentUserFile.getline(tempUserDestinationLine, MAX_LENGTH_TRAVEL2);
+                    currentUserFile.getline(tempUserDestinationLine, Travel::MAX_LENGTH_TRAVEL2 - 1);
 
                     while(tempUserDestinationLine[index] != ' ')
                     {
@@ -246,7 +248,7 @@ int Menu::menuSecond(int choiceAfter)
 
                 delete[] currentUserFileName;
 
-            } while (file.getline(tempLine, MAX_LENGTH_TRAVEL2));
+            } while (file.getline(tempLine, Travel::MAX_LENGTH_TRAVEL2));
             
             file.close();
 
@@ -281,6 +283,13 @@ int Menu::getRating(const char* arr)
     }
 
     return arr[index] - '0';
+}
+
+Menu& Menu::start()
+{
+    static Menu object;
+
+    return object;
 }
 
 void Menu::printMenuFirst() const
