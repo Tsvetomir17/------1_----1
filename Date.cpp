@@ -122,7 +122,7 @@ Date::Date()
 
 void Date::setDate(const char start[], const char end[])
 {
-        std::cout << start << " " << end << std::endl;
+    std::cout << start << " " << end << std::endl;
 
     if(checkIfTimePeriodIsCorrect(start) && checkIfTimePeriodIsCorrect(end))
     {

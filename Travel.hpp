@@ -14,7 +14,6 @@ class Travel
 {
 private:
 
-    
     /// Динамично заделен масив за дестинацията
     char* destination;
 

@@ -8,7 +8,6 @@ var class_menu =
     [ "menuSecond", "class_menu.html#a3f7b96a82a2d50b8b6bee27b35dd58ac", null ],
     [ "printMenuFirst", "class_menu.html#ae07398a93d97807e23950ac6977404aa", null ],
     [ "printMenuSecond", "class_menu.html#ab9cc07b4bc8ba162084c11f79d9c53b9", null ],
-    [ "saveUsername", "class_menu.html#a8b587ef3a08ed43d04e70a4d4eb978ae", null ],
     [ "choice", "class_menu.html#ad5152b40c2819510f9e74600f4b510ad", null ],
     [ "choiceAfterLogIn", "class_menu.html#aa121983b063e5689482b800648ac2eff", null ],
     [ "fileName", "class_menu.html#a72a067659904a0ade3e0ba2c4bddf607", null ],

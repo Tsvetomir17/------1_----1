@@ -4,11 +4,6 @@ int Menu::counter = 0;
 
 Menu::Menu() : choice(-1), choiceAfterLogIn(0), id(counter++) {}
 
-void Menu::saveUsername(const char* username)
-{
-    strcpy(this->username, username);
-}
-
 void Menu::checkInputChoice(int userChoice)
 {
     int tempChoice = userChoice;
@@ -129,7 +124,6 @@ int Menu::menuFirst()
             {
                 choiceAfterLogIn = -1;
                 choice = -1;
-                saveUsername(bufferUsername);
             }
         }
     }

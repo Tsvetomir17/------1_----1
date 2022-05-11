@@ -77,7 +77,7 @@ bool User::checkIfUsernameIsCorrect(const char* username)
     
     for(int i = 0; i < usernameSize; i++)
     {
-        if((username[i] < 'a' || username[i] > 'z') && (username[i] < 'A' || username[i] > 'Z') && (username[i] < '0' || username[i] > '9') || username[i] == ' ')
+        if((username[i] < 'a' || username[i] > 'z') && (username[i] < 'A' || username[i] > 'Z') && (username[i] < '0' || username[i] > '9'))
         {
             return false;
         }
@@ -90,14 +90,14 @@ bool User::checkIfUsernameIsCorrect(const char* username)
         return false;
     }
 
-    char tempUserName[MAX_LENGTH];
-    char tempUserLine[MAX_TEMP_ROW];
+    char tempUserName[User::MAX_LENGTH];
+    char tempUserLine[User::MAX_TEMP_ROW];
     int index = 0;
 
     while(!file.eof())
     {
         index = 0;
-        file.getline(tempUserLine, MAX_TEMP_ROW);
+        file.getline(tempUserLine, User::MAX_TEMP_ROW);
 
         while(tempUserLine[index] != ' ')
         {
@@ -119,7 +119,6 @@ bool User::checkIfUsernameIsCorrect(const char* username)
 
             else
             {
-                
                 break;
             }
         }
@@ -167,11 +166,6 @@ bool User::checkIfEmailAdressIsCorrect(const char* emailAdress)
 
 User::User() : username(nullptr), password(nullptr), emailAdress(nullptr) {}
 
-User::User(const char* username, const char* password, const char* emailAdress)
-{
-    this->copy(username, password, emailAdress);
-}
-
 User::User(const User& other)
 {
     this->copy(other.username, other.password, other.emailAdress);
@@ -201,9 +195,10 @@ std::istream& operator >> (std::istream& in, User& user)
 
     std::cout << "Username: ";
     in.ignore();
-    in.getline(bufferUsername, User::MAX_LENGTH);
+    in >> bufferUsername;
 
     std::cout << "Password: ";
+    in.ignore();
     in >> bufferPassword;
     
     std::cout << "Email: ";

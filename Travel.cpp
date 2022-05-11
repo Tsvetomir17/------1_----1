@@ -69,13 +69,6 @@ void Travel::copy(const char* destination, const Date time, const int grade, con
         return;
     }
 
-    if(!(strlen(time.getStart()) > 0 && strlen(time.getEnd())) > 0)
-    {
-        std::cout << "Invalid time!" << std::endl;
-        this->deallocate();
-        return;
-    }
-
     this->grade = grade;
     
     this->comment = new (std::nothrow) char[strlen(comment) + 1];
@@ -92,7 +85,6 @@ void Travel::copy(const char* destination, const Date time, const int grade, con
     this->photos = new (std::nothrow) char[strlen(photos) + 1];
 
     strcpy(this->photos, photos);
-
 }
 
 void Travel::deallocate()

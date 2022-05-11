@@ -1,7 +1,6 @@
 var class_user =
 [
     [ "User", "class_user.html#a4a0137053e591fbb79d9057dd7d2283d", null ],
-    [ "User", "class_user.html#ab88020b23839a580ee177d7607bfb3a3", null ],
     [ "User", "class_user.html#aad23b10cdefd26d6ca2ca981e9f9c973", null ],
     [ "~User", "class_user.html#ac00b72ad64eb4149f7b21b9f5468c2b2", null ],
     [ "checkIfEmailAdressIsCorrect", "class_user.html#a6a892a2d520ba48c2b43bc57d359a46c", null ],

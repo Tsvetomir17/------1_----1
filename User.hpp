@@ -50,9 +50,6 @@ public:
     /// Конструктор по подразбиране
     User();
 
-    /// Конструктор с параметри
-    User(const char* username, const char* password, const char* emailAdress);
-
     /// Конструктор за копиране
     User(const User& other);
 
