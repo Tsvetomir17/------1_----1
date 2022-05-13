@@ -124,6 +124,7 @@ int Menu::menuFirst()
             {
                 choiceAfterLogIn = -1;
                 choice = -1;
+                strcpy(this->username, bufferUsername);
             }
         }
     }
@@ -142,10 +143,12 @@ int Menu::menuSecond(int choiceAfter)
         std::cin >> choiceAfterLogIn;
         checkInputChoiceAfterLogIn(choiceAfterLogIn);
 
+        std::cout << username << std::endl;
         strcpy(fileName, username);
         strcat(fileName, ".db");
 
         fileName[sizeof(fileName)] = '\0';
+        std::cout << fileName << std::endl;
     }
 
     while(choiceAfterLogIn != 0)
